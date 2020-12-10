@@ -41,6 +41,38 @@ En una terminal o consola de comandos, ingresar la siguiente instrucción:
 ```
   pip install behave
 ```
+una vez que termine de instalar la dependencia ya podemos proceder con el desarrollo de pruebas
 
+## Desarrollo de pruebas con behave
+
+Una vez instalado la dependencia de behave se necesita crear un directorio donde incluya los Feature.
+
+Estando dentro de la carpeta crearemos un archivo llamado **carta.feature** (más adelante seguiremos con el contenido de este archivo). También se creará otra carpeta llamada steps y dentro de ella creamos un archivo **steps_carta.py** (más adelante seguiremos con el contenido de este archivo).
+
+
+### Features
+
+los feature son archivos escritos en lenguaje natural realizado por cualquier persona que quiera describir un comportamiento dentro de un escenario para una funcionalidad en concreto.
+
+#### Estructura de un feature
+
+Esta es la estructura básica de un feature
+
+```
+Feature: <<nombre del feature>>
+
+Scenario: <<nombre del escenario>>
+
+Given <<texto>>
+When <<texto>>
+Then <<texto>>
+```
+Las partes principales del archivo feature son estas
+
+**Given**: ponemos el sistema en un estado conocido antes de que el usuario (o sistema externo) comience a interactuar con el sistema (en los pasos Cuándo). Evite hablar de la interacción del usuario en situaciones dadas.
+
+**When**: tomamos acciones clave que realiza el usuario (o el sistema externo). Esta es la interacción con su sistema que debería (o tal vez no debería) hacer que algún estado cambie.
+
+**Then**: observamos los resultados.
 
 
