@@ -76,3 +76,117 @@ Las partes principales del archivo feature son estas
 **Then**: observamos los resultados.
 
 
+#### Estructura de un step
+
+Esta es la estructura básica. 
+Dentro de la carpeta feature/steps/ creamos un archivo de python 
+
+```
+from behave import *  # Se importa la dependencia de behave
+
+
+@given('<<texto del given que esta en el feature>>')
+def step(<<argumentos>>):
+  <<Contenido de la funcionalidad del step>>
+
+@when('<<texto del when que esta en el feature>>')
+def step(<<argumentos>>):
+  <<Contenido de la funcionalidad del step>>
+
+@then('<<texto del when que esta en el feature>>')
+def step(<<argumentos>>):
+  <<Contenido de la funcionalidad del step>>
+
+```
+
+## Desarrollo de las pruebas con el juego 21
+
+Ahora bien, ya que tenemos la introducción básica y esencial de behave, vamos a implementar algunas pruebas para comprobar su correcto funcionamiento. Cabe aclarar que para este juego de 21 es muy básico y solo se encuentra el repartidor y un jugador.
+
+### Feature y step de una carta
+
+Vamos a tomar como ejemplo una prueba para los valores de una carta, por tanto, empezamos creando:
+* El archivo carta.feature 
+* En la carpeta steps/ creamos el archivo steps_carta.py
+
+#### Feature
+
+ahora en el archivo carta.feature vamos definir nuestro feature
+
+```
+Feature: Carta del 21
+
+    Como jugador quiero determinar el valor de una carta para determinar el valor de la mano.
+
+Scenario Outline: determinar valor carta
+Given una <carta> para saber su valor
+When el jugador quiere saber su valor
+Then el <valor> de la carta es correcto
+
+Examples:
+    | carta         | valor | 
+    | 2, picas      | 2     |
+    | A, corazones  | 1     |
+    | 8, treboles   | 8     |
+    | J, picas      | 10    |
+    | Q, picas      | 10    |
+    | K, picas      | 10    |
+
+```
+
+Como se observa en el contenido del archivo se define un escenario que va a determinar el valor de una carta. 
+
+También se establece el **Given, When y Then** dentro de estas 3 partes establecemos las condiciones para evaluar el comportamiento de la funcionalidad para determinar el valor de una carta.
+
+Entonces 
+
+
+```
+Given una <carta> para saber su valor
+```
+Aquí definimos qué vamos a comprobar en este caso una carta.
+
+```
+When el jugador quiere saber su valor
+```
+Aquí definimos que el jugador desea saber su valor de la carta que se le ha entregado.
+
+```
+Then el <valor> de la carta es correcto
+```
+Aquí definimos el valor correcto que la carta debe tener
+
+Ya por último, se tiene la sección de examples que son básicamente la definición explícita de algunos valores de unas cartas.
+
+#### Step
+
+Dentro del archivo steps_carta.py definimos lo siguiente
+
+```
+from behave import *
+from carta import Carta
+
+@given('una {carta} para saber su valor')
+def step(context, carta):
+    valor, pinta = carta.split(",")
+    context.carta = Carta(valor, pinta)
+
+@when('el jugador quiere saber su valor')
+def step(context):
+    context.valor = context.carta.evaluar()
+
+@then('el {valor:d} de la carta es correcto')
+def step(context, valor):
+    assert context.valor == valor
+```
+
+Aquí como ya habiamos visto previamente se tienen 3 funciones definidas para cada parte del feature (Given, When y Then)
+
+La explicación de las funciones es así
+
+* La función del Given, se encarga de almacenar el valor y pinta de una carta.
+* La función del When, se encarga de evaluar dentro de la clase Carte la funcion evaluar().
+* La función del Then, se encarga de comprobar si el valor tanto del feature como el de la clase son iguales.
+
+
+Así se realizará para los demás features y steps de las historias de usuario ya definidas.

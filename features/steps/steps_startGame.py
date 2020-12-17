@@ -4,11 +4,11 @@ from mano import Mano
 from carta import Carta
 
 @given('un {mazo} para jugar 21')
-def implementacion(context,mazo):
+def step(context,mazo):
     context.mazo = mazo
 
 @when('el repartidor reparte una {carta1} y luego otra {carta2}')
-def implementacion(context,carta1,carta2):
+def step(context,carta1,carta2):
     c1= carta1.split(",")
     valor1=c1[0]
     pinta1=c1[1]
@@ -29,5 +29,5 @@ def implementacion(context,carta1,carta2):
 
 
 @then('la {mano:d} es correcta')
-def implementacion(context,mano):
+def step(context,mano):
     assert context.mano.dar_cantidad_cartas()==mano
